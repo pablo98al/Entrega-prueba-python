@@ -1,6 +1,7 @@
 # 1. Escribe una función que reciba una cadena de texto como parámetro y devuelva un diccionario con las frecuencias
 # de cada letra en la cadena. Los espacios no deben ser considerados.
 
+
 import math
 from functools import reduce
 
@@ -225,7 +226,7 @@ print(resultado)
 
 
 def letras_mayus_minus(caracteres):
-    caracteres_unicos = list(dict.fromkeys(c.lower() for c in caracteres))
+    caracteres_unicos = set(caracteres.lower())
     return list(map(lambda c: (c.upper(), c.lower()), caracteres_unicos))
 
 
@@ -273,6 +274,7 @@ print(resultado)
 
 
 # Función para acumular los dígitos en un número
+
 
 def acumular(num, d):
     return num * 10 + d
@@ -554,13 +556,11 @@ class Arbol:
             print("Todas las ramas han crecido.")
 
     # Método para quitar una rama por nombre
-    def quitar_rama(self, nombre_rama):
-        if nombre_rama in self.ramas:
-            self.ramas.remove(nombre_rama)
-            print(f"Se quitó la rama: {nombre_rama}")
+    def quitar_rama(self, posicion):
+        if 0 <= posicion < len(self.ramas):
+            self.ramas.pop(posicion)  # elimina el elemento en ese ÍNDICE
         else:
-            # por si la rama no existe
-            print(f"No se encontró la rama: {nombre_rama}")
+            print("Posición de rama no válida.")
 
     # Método para mostrar información del árbol
     def info_arbol(self):
@@ -588,7 +588,7 @@ mi_arbol.crecer_ramas()
 mi_arbol.info_arbol()
 
 # 5. Implementar el método  quitar_rama  para eliminar una rama en una posición específica.
-mi_arbol.quitar_rama('Rama1 (crecida)')
+mi_arbol.quitar_rama(0)
 mi_arbol.info_arbol()
 
 # 6. Implementar el método info_arbol para devolver información sobre la longitud del tronco, el número de ramas y las longitudes de las
@@ -619,7 +619,7 @@ mi_arbol.nueva_rama('4')
 
 
 # 6. Retirar la rama situada en la posición 2.
-mi_arbol.quitar_rama('2 (crecida)')
+mi_arbol.quitar_rama(1)
 mi_arbol.info_arbol()
 print(f"Fin ejercicio 35 :)")
 # 36. Crea la clase  UsuarioBanco ,representa a un usuario de un banco con su nombre, saldo y si tiene o no cuenta
@@ -730,7 +730,8 @@ def reemplazar_palabras(texto, palabra_original, palabra_nueva):
 def eliminar_palabra(texto, palabra_a_eliminar):
     palabras = texto.split()
     # Filtrar todas las palabras distintas de la que queremos eliminar
-    palabras_filtradas = [p for p in palabras if p != palabra_a_eliminar]
+    palabras_filtradas = [
+        p for p in palabras if p.lower() != palabra_a_eliminar.lower()]
     return ' '.join(palabras_filtradas)
 
 # procesar texto
